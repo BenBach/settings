@@ -46,7 +46,7 @@ Plugin 'bling/vim-airline'
 
 Plugin 'tpope/vim-fugitive'
 
-Plugin 'tpope/vim-commentary'
+Plugin 'scrooloose/nerdcommenter'
 
 Plugin 'tpope/vim-surround'
 
@@ -70,8 +70,12 @@ Plugin 'mustache/vim-mustache-handlebars'
 
 Plugin 'plasticboy/vim-markdown'
 
+Plugin 'Lokaltog/vim-easymotion'
 
-" All of your Plugins must be added before the following line
+Plugin 'matchit.zip'
+
+
+" All of your Plugins must be aded before the following line
 call vundle#end()            " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -244,10 +248,6 @@ vnoremap <silent> # :call VisualSelection('b', '')<CR>
 " Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
-
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
@@ -440,7 +440,7 @@ call togglebg#map("<F5>")
 "    means that you can undo even when you close a buffer/VIM
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 try
-    set undodir=~/.vim_runtime/temp_dirs/undodir
+    set undodir=~/.vim/temp_dirs/undodir
     set undofile
 catch
 endtry
@@ -501,7 +501,7 @@ map <leader>f :MRU<CR>
 if has("win16") || has("win32")
     " Don't do anything
 else
-    let g:yankring_history_dir = '~/.vim_runtime/temp_dirs/'
+    let g:yankring_history_dir = '~/.vim/temp_dirs/'
 endif
 
 
@@ -623,3 +623,20 @@ nnoremap j gj
 nnoremap k gk
 
 set clipboard+=unnamed " Yanks go on clipboard instead.
+
+" Easymotion config
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+" Bi-directional find motion
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap s <Plug>(easymotion-s)
+" `<space>{char}{char}{label}`
+nmap <space> <Plug>(easymotion-s2)
+
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)

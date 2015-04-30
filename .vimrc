@@ -62,8 +62,6 @@ Plugin 'Shutnik/jshint2.vim'
 
 Plugin 'scrooloose/syntastic'
 
-Plugin 'haml.zip'
-
 Plugin 'Yggdroot/indentLine'
 
 Plugin 'mustache/vim-mustache-handlebars'
@@ -74,6 +72,7 @@ Plugin 'Lokaltog/vim-easymotion'
 
 Plugin 'matchit.zip'
 
+Plugin 'tpope/vim-haml' " has to be last
 
 " All of your Plugins must be aded before the following line
 call vundle#end()            " required
@@ -104,8 +103,8 @@ set autoread
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
+let mapleader = " "
+let g:mapleader = " "
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -180,6 +179,12 @@ set tm=500
 " Add a bit extra margin to the left
 set foldcolumn=1
 
+" Folding
+set foldmethod=indent
+set foldlevelstart=1
+set foldnestmax=10
+set nofoldenable        "dont fold by default
+set foldlevel=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -629,9 +634,7 @@ set clipboard+=unnamed " Yanks go on clipboard instead.
 " Bi-directional find motion
 " Jump to anywhere you want with minimal keystrokes, with just one key binding.
 " `s{char}{label}`
-nmap s <Plug>(easymotion-s)
-" `<space>{char}{char}{label}`
-nmap <space> <Plug>(easymotion-s2)
+nmap s <Plug>(easymotion-s2)
 
 " Turn on case insensitive feature
 let g:EasyMotion_smartcase = 1
@@ -639,3 +642,13 @@ let g:EasyMotion_smartcase = 1
 " JK motions: Line motions
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
+
+" Gif config
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" Without these mappings, `n` & `N` works fine. (These mappings just provide
+" different highlight method and have some other features )
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)

@@ -181,7 +181,7 @@ set foldcolumn=1
 
 " Folding
 set foldmethod=indent
-set foldlevelstart=1
+set foldlevelstart=99
 set foldnestmax=10
 set nofoldenable        "dont fold by default
 set foldlevel=1

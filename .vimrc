@@ -72,6 +72,10 @@ Plugin 'Lokaltog/vim-easymotion'
 
 Plugin 'matchit.zip'
 
+Plugin 'Wolfy87/vim-enmasse'
+
+Plugin 'pangloss/vim-javascript'
+
 Plugin 'tpope/vim-haml' " has to be last
 
 " All of your Plugins must be aded before the following line

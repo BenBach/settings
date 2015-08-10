@@ -76,6 +76,8 @@ Plugin 'Wolfy87/vim-enmasse'
 
 Plugin 'pangloss/vim-javascript'
 
+Plugin 'elzr/vim-json'
+
 Plugin 'tpope/vim-haml' " has to be last
 
 " All of your Plugins must be aded before the following line
@@ -475,7 +477,7 @@ inoremap $2 []<esc>i
 inoremap $3 {}<esc>i
 inoremap $4 {<esc>o}<esc>O
 inoremap $q ''<esc>i
-inoremap $e ""<esc>i
+inoremap $5 ""<esc>i
 inoremap $t <><esc>i
 
 """"""""""""""""""""""""""""""
@@ -490,6 +492,7 @@ au FileType javascript imap <c-a> alert();<esc>hi
 au FileType javascript inoremap <buffer> $r return
 au FileType javascript inoremap <buffer> $f //--- PH ----------------------------------------------<esc>FP2xi
 
+let g:vim_json_syntax_conceal = 0
 
 """"""""""""""""""""""""""""""
 " => bufExplorer plugin

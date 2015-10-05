@@ -58,8 +58,6 @@ Plugin 'tpope/vim-repeat'
 
 Plugin 'jpo/vim-railscasts-theme'
 
-Plugin 'Shutnik/jshint2.vim'
-
 Plugin 'scrooloose/syntastic'
 
 Plugin 'Yggdroot/indentLine'
@@ -444,8 +442,19 @@ else
   "let g:solarized_termcolors = 256
   "let g:solarized_visibility = "high"
   "let g:solarized_contrast = "high"
-  set background=dark
+
   colorscheme solarized
+  " If the current iTerm tab has been
+  " created using the **dark** profile:
+  if $ITERM_PROFILE == 'Solarized Dark'
+    set background=dark
+  endif
+
+  " If the current iTerm tab has been
+  " created using the **light** profile:
+  if $ITERM_PROFILE == 'Solarized Light'
+    set background=light
+  endif
 endif
 
 call togglebg#map("<F5>")
@@ -579,12 +588,22 @@ let g:airline_theme="luna"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Syntastic (syntax checker)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:syntastic_python_checkers=['pyflakes']
+" recommended statusline defaults
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+" recommended defaults
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+" eslint
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exec = 'eslint_d'
+" fancy symbols
+let g:syntastic_error_symbol = "✗"
+let g:syntastic_warning_symbol = "⚠"
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let jshint2_command = "/usr/local/lib/node_modules/jshint/bin"
-let jshint2_read = 1
-let jshint2_save = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Show intens at the beginning of the line

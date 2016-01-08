@@ -15,6 +15,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'tomasr/molokai'
 
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
@@ -76,6 +77,14 @@ Plugin 'pangloss/vim-javascript'
 
 Plugin 'elzr/vim-json'
 
+Plugin 'mxw/vim-jsx'
+
+Plugin 'groenewege/vim-less'
+
+Plugin 'airblade/vim-gitgutter'
+
+Plugin 'vim-scripts/TaskList.vim'
+
 Plugin 'tpope/vim-haml' " has to be last
 
 " All of your Plugins must be aded before the following line
@@ -135,6 +144,9 @@ endif
 
 "Always show current position
 set ruler
+
+" Highlight 80 charactes column
+set colorcolumn=80
 
 " Height of the command bar
 set cmdheight=2
@@ -438,22 +450,33 @@ if has("gui_running")
     set background=dark
     colorscheme railscasts
 else
-  let g:colors_name="solarized"
-  "let g:solarized_termcolors = 256
-  "let g:solarized_visibility = "high"
-  "let g:solarized_contrast = "high"
 
-  colorscheme solarized
   " If the current iTerm tab has been
   " created using the **dark** profile:
   if $ITERM_PROFILE == 'Solarized Dark'
+    colorscheme solarized
+    let g:colors_name="solarized"
+    "let g:solarized_termcolors = 256
+    "let g:solarized_visibility = "high"
+    "let g:solarized_contrast = "high"
     set background=dark
   endif
 
   " If the current iTerm tab has been
   " created using the **light** profile:
   if $ITERM_PROFILE == 'Solarized Light'
+    colorscheme solarized
+    let g:colors_name="solarized"
+    "let g:solarized_termcolors = 256
+    "let g:solarized_visibility = "high"
+    "let g:solarized_contrast = "high"
     set background=light
+  endif
+
+  if $ITERM_PROFILE == 'Molokai'
+    colorscheme molokai
+    let g:rehash256 = 1
+    let g:colors_name="molokai"
   endif
 endif
 
@@ -564,6 +587,10 @@ map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark
 map <leader>nf :NERDTreeFind<cr>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Nerd Commenter
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let NERDSpaceDelims=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-multiple-cursors
@@ -603,6 +630,8 @@ let g:syntastic_javascript_eslint_exec = 'eslint_d'
 " fancy symbols
 let g:syntastic_error_symbol = "✗"
 let g:syntastic_warning_symbol = "⚠"
+" disable for html
+let g:syntastic_html_checkers=['']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -682,3 +711,6 @@ omap / <Plug>(easymotion-tn)
 " different highlight method and have some other features )
 map  n <Plug>(easymotion-next)
 map  N <Plug>(easymotion-prev)
+
+let g:jsx_ext_required = 0
+let g:aghighlight = 1 "hightlight search terms after searching

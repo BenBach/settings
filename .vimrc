@@ -15,7 +15,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'tomasr/molokai'
+"Plugin 'tomasr/molokai'
 
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
@@ -84,6 +84,10 @@ Plugin 'groenewege/vim-less'
 Plugin 'airblade/vim-gitgutter'
 
 Plugin 'vim-scripts/TaskList.vim'
+
+Plugin 'BenBach/mango.vim'
+
+"Plugin 'Lokaltog/vim-distinguished'
 
 Plugin 'tpope/vim-haml' " has to be last
 
@@ -473,14 +477,19 @@ else
     set background=light
   endif
 
-  if $ITERM_PROFILE == 'Molokai'
-    colorscheme molokai
-    let g:rehash256 = 1
-    let g:colors_name="molokai"
+  if $ITERM_PROFILE == 'Mango'
+    set t_Co=256
+    color mango
+    set background=dark
+  endif
+
+  if $ITERM_PROFILE == 'Distinguished'
+    color distinguished
+    set background=dark
   endif
 endif
 
-call togglebg#map("<F5>")
+"call togglebg#map("<F5>")
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Turn persistent undo on
@@ -628,8 +637,8 @@ let g:syntastic_check_on_wq = 1
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exec = 'eslint_d'
 " fancy symbols
-let g:syntastic_error_symbol = "✗"
-let g:syntastic_warning_symbol = "⚠"
+let g:syntastic_error_symbol = "‚úó"
+let g:syntastic_warning_symbol = "‚ö†"
 " disable for html
 let g:syntastic_html_checkers=['']
 
@@ -713,4 +722,4 @@ map  n <Plug>(easymotion-next)
 map  N <Plug>(easymotion-prev)
 
 let g:jsx_ext_required = 0
-let g:aghighlight = 1 "hightlight search terms after searching
+let g:ag_highlight = 1 "hightlight search terms after searching

@@ -17,11 +17,11 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'altercation/vim-colors-solarized'
 "Plugin 'tomasr/molokai'
 
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
+" Plugin 'MarcWeber/vim-addon-mw-utils'
+" Plugin 'tomtom/tlib_vim'
+" Plugin 'garbas/vim-snipmate'
 
-Plugin 'honza/vim-snippets'
+" Plugin 'honza/vim-snippets'
 
 Plugin 'rking/ag.vim'
 
@@ -33,17 +33,21 @@ Plugin 'kien/ctrlp.vim'
 
 Plugin 'vim-scripts/mru.vim'
 
-Plugin 'amix/open_file_under_cursor.vim'
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'ervandew/supertab'
+
+" Plugin 'amix/open_file_under_cursor.vim'
 
 Plugin 'michaeljsmith/vim-indent-object'
 
 Plugin 'vim-scripts/taglist.vim'
 
-Plugin 'terryma/vim-multiple-cursors'
+" Plugin 'terryma/vim-multiple-cursors'
 
 Plugin 'terryma/vim-expand-region'
 
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 Plugin 'tpope/vim-fugitive'
 
@@ -57,15 +61,11 @@ Plugin 'tpope/vim-bundler'
 
 Plugin 'tpope/vim-repeat'
 
-Plugin 'jpo/vim-railscasts-theme'
-
-Plugin 'scrooloose/syntastic'
+" Plugin 'jpo/vim-railscasts-theme'
 
 Plugin 'Yggdroot/indentLine'
 
-Plugin 'mustache/vim-mustache-handlebars'
-
-Plugin 'plasticboy/vim-markdown'
+" Plugin 'mustache/vim-mustache-handlebars'
 
 Plugin 'Lokaltog/vim-easymotion'
 
@@ -73,19 +73,21 @@ Plugin 'matchit.zip'
 
 Plugin 'Wolfy87/vim-enmasse'
 
+Plugin 'w0rp/ale'
+" Plugin 'neomake/neomake'
+
 Plugin 'pangloss/vim-javascript'
+Plugin 'maxmellon/vim-jsx-pretty'
 
 Plugin 'elzr/vim-json'
-
-Plugin 'mxw/vim-jsx'
 
 Plugin 'groenewege/vim-less'
 
 Plugin 'airblade/vim-gitgutter'
 
-Plugin 'vim-scripts/TaskList.vim'
+" Plugin 'vim-scripts/TaskList.vim'
 
-Plugin 'BenBach/mango.vim'
+" Plugin 'BenBach/mango.vim'
 
 "Plugin 'Lokaltog/vim-distinguished'
 
@@ -122,6 +124,9 @@ set autoread
 " like <leader>w saves the current file
 let mapleader = " "
 let g:mapleader = " "
+
+inoremap jj <esc>
+inoremap jk <esc>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -622,25 +627,37 @@ let g:airline_theme="luna"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Syntastic (syntax checker)
+" => Linting with Ale
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" recommended statusline defaults
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-" recommended defaults
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-" eslint
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exec = 'eslint_d'
-" fancy symbols
-let g:syntastic_error_symbol = "‚úó"
-let g:syntastic_warning_symbol = "‚ö†"
-" disable for html
-let g:syntastic_html_checkers=['']
+let g:ale_sign_column_always = 1
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\}
+
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? 'OK' : printf(
+    \   '%dW %dE',
+    \   all_non_errors,
+    \   all_errors
+    \)
+endfunction
+
+set statusline=%{LinterStatus()}
+
+" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+" neomake
+nmap <Leader><Leader>o :lopen<CR>      " open location window
+nmap <Leader><Leader>c :lclose<CR>     " close location window
+nmap <Leader><Leader>, :ll<CR>         " go to current error/warning
+nmap <Leader>n :lnext<CR>      " next error/warning
+nmap <Leader>p :lprev<CR>      " previous error/warning
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -721,5 +738,7 @@ omap / <Plug>(easymotion-tn)
 map  n <Plug>(easymotion-next)
 map  N <Plug>(easymotion-prev)
 
-let g:jsx_ext_required = 0
 let g:ag_highlight = 1 "hightlight search terms after searching
+
+" Auto Completion
+let g:deoplete#enable_at_startup = 1

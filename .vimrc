@@ -5,107 +5,101 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+call plug#begin('~/.vim/plugged')
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plug 'altercation/vim-colors-solarized'
+"Plug 'tomasr/molokai'
 
-Plugin 'altercation/vim-colors-solarized'
-"Plugin 'tomasr/molokai'
+" Plug 'MarcWeber/vim-addon-mw-utils'
+" Plug 'tomtom/tlib_vim'
+" Plug 'garbas/vim-snipmate'
 
-" Plugin 'MarcWeber/vim-addon-mw-utils'
-" Plugin 'tomtom/tlib_vim'
-" Plugin 'garbas/vim-snipmate'
+" Plug 'honza/vim-snippets'
 
-" Plugin 'honza/vim-snippets'
+Plug 'rking/ag.vim'
 
-Plugin 'rking/ag.vim'
+Plug 'vim-scripts/bufexplorer.zip'
 
-Plugin 'bufexplorer.zip'
+Plug 'scrooloose/nerdtree'
 
-Plugin 'scrooloose/nerdtree'
+Plug 'kien/ctrlp.vim'
 
-Plugin 'kien/ctrlp.vim'
+Plug 'vim-scripts/mru.vim'
 
-Plugin 'vim-scripts/mru.vim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'ervandew/supertab'
 
-Plugin 'Shougo/deoplete.nvim'
-Plugin 'ervandew/supertab'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
-" Plugin 'amix/open_file_under_cursor.vim'
+function! BuildTern(info)
+  if a:info.status == 'installed' || a:info.force
+    !npm install
+  endif
+endfunction
+Plug 'ternjs/tern_for_vim', { 'do': function('BuildTern'), 'for': ['javascript', 'javascript.jsx'] }
+Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 
-Plugin 'michaeljsmith/vim-indent-object'
+" Plug 'amix/open_file_under_cursor.vim'
 
-Plugin 'vim-scripts/taglist.vim'
+Plug 'michaeljsmith/vim-indent-object'
 
-" Plugin 'terryma/vim-multiple-cursors'
+Plug 'vim-scripts/taglist.vim'
 
-Plugin 'terryma/vim-expand-region'
+" Plug 'terryma/vim-multiple-cursors'
 
-Plugin 'bling/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'terryma/vim-expand-region'
 
-Plugin 'tpope/vim-fugitive'
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
-Plugin 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-fugitive'
 
-Plugin 'tpope/vim-surround'
+Plug 'scrooloose/nerdcommenter'
 
-Plugin 'tpope/vim-rails'
+Plug 'tpope/vim-surround'
 
-Plugin 'tpope/vim-bundler'
+Plug 'tpope/vim-rails'
 
-Plugin 'tpope/vim-repeat'
+Plug 'tpope/vim-bundler'
 
-" Plugin 'jpo/vim-railscasts-theme'
+Plug 'tpope/vim-repeat'
 
-Plugin 'Yggdroot/indentLine'
+" Plug 'jpo/vim-railscasts-theme'
 
-" Plugin 'mustache/vim-mustache-handlebars'
+Plug 'Yggdroot/indentLine'
 
-Plugin 'Lokaltog/vim-easymotion'
+" Plug 'mustache/vim-mustache-handlebars'
 
-Plugin 'matchit.zip'
+Plug 'Lokaltog/vim-easymotion'
 
-Plugin 'Wolfy87/vim-enmasse'
+Plug 'vim-scripts/matchit.zip'
 
-Plugin 'w0rp/ale'
-" Plugin 'neomake/neomake'
+Plug 'Wolfy87/vim-enmasse'
 
-Plugin 'pangloss/vim-javascript'
-Plugin 'maxmellon/vim-jsx-pretty'
+Plug 'w0rp/ale'
+" Plug 'neomake/neomake'
 
-Plugin 'elzr/vim-json'
+Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
 
-Plugin 'groenewege/vim-less'
+Plug 'elzr/vim-json'
 
-Plugin 'airblade/vim-gitgutter'
+Plug 'groenewege/vim-less'
 
-" Plugin 'vim-scripts/TaskList.vim'
+Plug 'airblade/vim-gitgutter'
 
-" Plugin 'BenBach/mango.vim'
+" Plug 'vim-scripts/TaskList.vim'
 
-"Plugin 'Lokaltog/vim-distinguished'
+" Plug 'BenBach/mango.vim'
 
-Plugin 'tpope/vim-haml' " has to be last
+"Plug 'Lokaltog/vim-distinguished'
 
-" All of your Plugins must be aded before the following line
-call vundle#end()            " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+Plug 'tpope/vim-haml' " has to be last
+
+call plug#end()
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -741,4 +735,21 @@ map  N <Plug>(easymotion-prev)
 let g:ag_highlight = 1 "hightlight search terms after searching
 
 " Auto Completion
+
+let g:deoplete#omni#functions = {}
+let g:deoplete#omni#functions.javascript = [
+  \ 'tern#Complete',
+  \ 'jspc#omni'
+\]
+set completeopt=longest,menuone,preview
+let g:deoplete#sources = {}
+let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
+let g:tern#command = ['tern']
+let g:tern#arguments = ['--persistent']
+
 let g:deoplete#enable_at_startup = 1
+
+autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+let g:UltiSnipsExpandTrigger="<C-j>"
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+

@@ -35,6 +35,12 @@ Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
+Plug 'Quramy/tsuquyomi'
+Plug 'rudism/deoplete-tsuquyomi'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+Plug 'Shougo/denite.nvim'
+
 function! BuildTern(info)
   if a:info.status == 'installed' || a:info.force
     !npm install
@@ -91,13 +97,22 @@ Plug 'groenewege/vim-less'
 
 Plug 'airblade/vim-gitgutter'
 
+Plug 'flowtype/vim-flow'
+
+Plug 'tmux-plugins/vim-tmux-focus-events'
+
 " Plug 'vim-scripts/TaskList.vim'
 
 " Plug 'BenBach/mango.vim'
 
 "Plug 'Lokaltog/vim-distinguished'
 
+Plug 'sovetnik/vim-hanami'
 Plug 'tpope/vim-haml' " has to be last
+
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 
 call plug#end()
 
@@ -114,6 +129,8 @@ filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
+" Trigger autoread when changing buffers inside while inside vim:
+au FocusGained,BufEnter * :checktime
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
@@ -224,7 +241,7 @@ if has("gui_running")
 endif
 
 " Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
+set encoding=utf-8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
@@ -589,6 +606,10 @@ let g:ctrlp_max_height = 20
 let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
 let g:ctrlp_show_hidden = 1
 
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 
 """"""""""""""""""""""""""""""
 " => snipMate (beside <TAB> support <CTRL-j>)
@@ -634,10 +655,19 @@ au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Linting with Ale
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:flow#enable = 0
+let g:flow#showquickfix = 0
 let g:ale_sign_column_always = 1
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \}
+
+let g:ale_fixers = {
+\   'javascript': ['eslint'],
+\}
+let g:ale_fix_on_save = 1
+nmap <leader>h <Plug>(ale_fix)
+
 
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
@@ -661,8 +691,10 @@ set statusline=%{LinterStatus()}
 nmap <Leader><Leader>o :lopen<CR>      " open location window
 nmap <Leader><Leader>c :lclose<CR>     " close location window
 nmap <Leader><Leader>, :ll<CR>         " go to current error/warning
-nmap <Leader>n :lnext<CR>      " next error/warning
-nmap <Leader>p :lprev<CR>      " previous error/warning
+" nmap <Leader>n :lnext<CR>      " next error/warning
+" nmap <Leader>p :lprev<CR>      " previous error/warning
+
+let g:prettier#autoformat = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -752,9 +784,10 @@ let g:deoplete#omni#functions.javascript = [
   \ 'tern#Complete',
   \ 'jspc#omni'
 \]
-set completeopt=longest,menuone,preview
+set completeopt=longest,menuone
 let g:deoplete#sources = {}
-let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
+let g:deoplete#sources['javascript.jsx'] = ['buffer', 'file', 'ultisnips', 'ternjs']
+let g:deoplete#sources['javascript'] = ['buffer', 'file', 'ultisnips', 'ternjs']
 let g:tern#command = ['tern']
 let g:tern#arguments = ['--persistent']
 
@@ -771,3 +804,5 @@ let g:python_host_prog = '/Users/ben/.pyenv/versions/neovim2/bin/python'
 let g:python3_host_prog = '/Users/ben/.pyenv/versions/neovim3/bin/python'
 
 let g:solarized_termtrans = 1
+
+let g:hanami_open_strategy = 'vsplit'

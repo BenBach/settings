@@ -38,7 +38,7 @@ Plug 'ervandew/supertab'
 Plug 'Quramy/tsuquyomi'
 " Plug 'rudism/deoplete-tsuquyomi'
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+" Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
 Plug 'Shougo/denite.nvim'
 
 " function! BuildTern(info)

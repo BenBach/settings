@@ -30,7 +30,7 @@ Plug 'kien/ctrlp.vim'
 Plug 'vim-scripts/mru.vim'
 
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
 
 " Plug 'SirVer/ultisnips'
 " Plug 'honza/vim-snippets'
@@ -614,13 +614,6 @@ if executable('ag')
 endif
 
 """"""""""""""""""""""""""""""
-" => snipMate (beside <TAB> support <CTRL-j>)
-""""""""""""""""""""""""""""""
-ino <c-j> <c-r>=snipMate#TriggerSnippet()<cr>
-snor <c-j> <esc>i<right><c-r>=snipMate#TriggerSnippet()<cr>
-
-
-""""""""""""""""""""""""""""""
 " => Vim grep
 """"""""""""""""""""""""""""""
 let Grep_Skip_Dirs = 'RCS CVS SCCS .svn generated'
@@ -779,6 +772,21 @@ map  N <Plug>(easymotion-prev)
 
 let g:ag_highlight = 1 "hightlight search terms after searching
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => COC
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
 " Auto Completion
 
 " let g:deoplete#omni#functions = {}
@@ -797,7 +805,7 @@ let g:ag_highlight = 1 "hightlight search terms after searching
 
 " autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 " let g:UltiSnipsExpandTrigger="<C-j>"
-" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+ "
 
 let g:javascript_plugin_flow = 1
 let g:jsx_ext_required = 0

@@ -7,17 +7,9 @@ filetype off                  " required
 
 call plug#begin('~/.vim/plugged')
 
-"Plug 'altercation/vim-colors-solarized'
-"Plug 'tomasr/molokai'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'dracula/vim', { 'as': 'dracula' }
-
-" Plug 'MarcWeber/vim-addon-mw-utils'
-" Plug 'tomtom/tlib_vim'
-" Plug 'garbas/vim-snipmate'
-
-" Plug 'honza/vim-snippets'
 
 Plug 'rking/ag.vim'
 
@@ -31,37 +23,18 @@ Plug 'vim-scripts/mru.vim'
 
 Plug 'editorconfig/editorconfig-vim'
 
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'ervandew/supertab'
-
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
 
 Plug 'Quramy/tsuquyomi'
-" Plug 'rudism/deoplete-tsuquyomi'
 Plug 'HerringtonDarkholme/yats.vim'
-" Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
-Plug 'Shougo/denite.nvim'
+" Plug 'Shougo/denite.nvim'
 
-" function! BuildTern(info)
-  " if a:info.status == 'installed' || a:info.force
-    " !npm install
-  " endif
-" endfunction
-" Plug 'ternjs/tern_for_vim', { 'do': function('BuildTern'), 'for': ['javascript', 'javascript.jsx'] }
-" Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
-
-" Plug 'amix/open_file_under_cursor.vim'
+" Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 
 Plug 'michaeljsmith/vim-indent-object'
 
-Plug 'vim-scripts/taglist.vim'
-
-" Plug 'terryma/vim-multiple-cursors'
+" Plug 'vim-scripts/taglist.vim'
 
 Plug 'terryma/vim-expand-region'
-
 
 Plug 'tpope/vim-fugitive'
 
@@ -69,17 +42,11 @@ Plug 'scrooloose/nerdcommenter'
 
 Plug 'tpope/vim-surround'
 
-Plug 'tpope/vim-rails'
-
 Plug 'tpope/vim-bundler'
 
 Plug 'tpope/vim-repeat'
 
-" Plug 'jpo/vim-railscasts-theme'
-
 Plug 'Yggdroot/indentLine'
-
-" Plug 'mustache/vim-mustache-handlebars'
 
 Plug 'Lokaltog/vim-easymotion'
 
@@ -88,9 +55,9 @@ Plug 'vim-scripts/matchit.zip'
 Plug 'Wolfy87/vim-enmasse'
 
 Plug 'w0rp/ale'
-" Plug 'neomake/neomake'
 
 Plug 'pangloss/vim-javascript'
+
 Plug 'mxw/vim-jsx'
 
 Plug 'elzr/vim-json'
@@ -99,18 +66,9 @@ Plug 'groenewege/vim-less'
 
 Plug 'airblade/vim-gitgutter'
 
-Plug 'flowtype/vim-flow'
+" Plug 'flowtype/vim-flow'
 
 Plug 'tmux-plugins/vim-tmux-focus-events'
-
-" Plug 'vim-scripts/TaskList.vim'
-
-" Plug 'BenBach/mango.vim'
-
-"Plug 'Lokaltog/vim-distinguished'
-
-Plug 'sovetnik/vim-hanami'
-Plug 'tpope/vim-haml' " has to be last
 
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
@@ -788,26 +746,6 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-
-" Auto Completion
-
-" let g:deoplete#omni#functions = {}
-" let g:deoplete#omni#functions.javascript = [
-  " \ 'tern#Complete',
-  " \ 'jspc#omni'
-" \]
-" set completeopt=longest,menuone
-" let g:deoplete#sources = {}
-" let g:deoplete#sources['javascript.jsx'] = ['buffer', 'file', 'ultisnips', 'ternjs']
-" let g:deoplete#sources['javascript'] = ['buffer', 'file', 'ultisnips', 'ternjs']
-" let g:tern#command = ['tern']
-" let g:tern#arguments = ['--persistent']
-
-" let g:deoplete#enable_at_startup = 1
-
-" autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-" let g:UltiSnipsExpandTrigger="<C-j>"
- "
 
 let g:javascript_plugin_flow = 1
 let g:jsx_ext_required = 0
